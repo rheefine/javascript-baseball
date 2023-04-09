@@ -1,19 +1,24 @@
+const { Random } = require("@woowacourse/mission-utils");
 const { Console } = require('@woowacourse/mission-utils');
 
 function main() {
   Console.print('숫자 야구 게임을 시작합니다.');
-  opponentInput();
+  let opponentNum = opponentInput();
+  compareLoop(opponentNum);
 }
 
 function opponentInput() {
-  Console.readLine('정답 숫자:', (number) => {
-    const opponentNum = number;
-    let playerNum;
-    compareLoop(opponentNum, playerNum);
-  });
+  let opponentNum = '';
+    while (opponentNum.length < 3){
+      const number = Random.pickNumberInRange(1, 9);
+      if (!opponentNum.includes(number))
+        opponentNum += number;
+    }
+    return opponentNum;
 }
 
-function compareLoop(opponentNum, playerNum) {
+function compareLoop(opponentNum) {
+  let playerNum;
   Console.readLine('숫자를 입력해주세요.', (number) => {
     playerNum = number;
     strike3(opponentNum, playerNum);
@@ -33,8 +38,8 @@ function mkNumArray(opponentNum, playerNum) {
   const opponentArray = opponentNum.split('');
   const playerArray = playerNum.split('');
   return {
-    opponentArray,
-    playerArray,
+    opponentArray: opponentArray,
+    playerArray: playerArray,
   };
 }
 
@@ -57,8 +62,8 @@ function strikeBallCount(opponentNum, playerNum) {
     }
   });
   return {
-    ball,
-    strike,
+    ball: ball,
+    strike: strike,
   };
 }
 
