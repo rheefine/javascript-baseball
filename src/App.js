@@ -1,11 +1,20 @@
-const { Random } = require("@woowacourse/mission-utils");
+const { Random } = require('@woowacourse/mission-utils');
 const { Console } = require('@woowacourse/mission-utils');
 
-function main() {
+class App{
+  play() {
+    Console.print('숫자 야구 게임을 시작합니다.');
+    let opponentNum = opponentInput();
+    compareLoop(opponentNum);
+  }  
+}
+
+function play() {
   Console.print('숫자 야구 게임을 시작합니다.');
   let opponentNum = opponentInput();
   compareLoop(opponentNum);
-}
+}  
+
 
 function opponentInput() {
   let opponentNum = '';
@@ -20,18 +29,51 @@ function opponentInput() {
 function compareLoop(opponentNum) {
   let playerNum;
   Console.readLine('숫자를 입력해주세요.', (number) => {
+    if (!(number.length===3)){
+      throw Error(" 3개의 숫자를 입력해주세요");
+    }
     playerNum = number;
     strike3(opponentNum, playerNum);
   });
 }
 
 function strike3(opponentNum, playerNum) {
+  let strikeBall = strikeBallCount(opponentNum,playerNum);
   if (opponentNum === playerNum) {
-    console.log('정답');
-  } else {
-    console.log(strikeBallCount(opponentNum, playerNum));
+    Console.print('3스트라이크');
+    Console.print('3개의 숫자를 모두 맞히셨습니다! 게임 종료')
+    gameEnd();
+  } 
+  if (opponentNum !== playerNum && strikeBall.ball === 0 && strikeBall.strike ===0) {
+    Console.print('낫싱');
     compareLoop(opponentNum);
   }
+  if (opponentNum !== playerNum && strikeBall.ball === 0 && strikeBall.strike > 0) {
+    Console.print(`${strikeBall.strike}스트라이크`)
+    compareLoop(opponentNum);
+  }
+  if (opponentNum !== playerNum && strikeBall.ball > 0 && strikeBall.strike === 0) {
+    Console.print(`${strikeBall.ball}볼`)
+    compareLoop(opponentNum);
+  }
+  if (opponentNum !== playerNum && strikeBall.ball > 0 && strikeBall.strike > 0) {
+    Console.print(`${strikeBall.ball}볼 ${strikeBall.strike}스트라이크`)
+    compareLoop(opponentNum);
+  }
+
+
+}
+
+function gameEnd(){
+  Console.readLine('게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.',(number) => {
+    if (number==='1'){
+      let opponentNum = opponentInput();
+      compareLoop(opponentNum);
+    }
+    if (number==='2'){
+      Console.close();
+    }
+  })
 }
 
 function mkNumArray(opponentNum, playerNum) {
@@ -67,17 +109,5 @@ function strikeBallCount(opponentNum, playerNum) {
   };
 }
 
-main();
-
-/*
-정답을 입력받고 배열으로 바꾸기
-입력받은 값이 같으면 종료
-플레이어 입력받기 입력받은 거를 배열로 넣기
-배열을 check check
-strike ball 판정
-두개의 배열을 array.includes or array.indexof
-사용해서 숫자가 존재하는지 판정 (ball 판정)
-만약 ball 이면 index 까지 확인해서 strike 인지 판정
-*/
-
-// template literory
+// play()
+module.exports = App;
