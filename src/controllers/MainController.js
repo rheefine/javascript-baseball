@@ -12,7 +12,6 @@ const {
 
 
 class MainController {
-
   mainGameController(){
     let input;
     readPlayerNum(this.ballCountController(input));
