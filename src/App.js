@@ -1,14 +1,13 @@
-const { StartController } = require('./controllers/StartController');
-
-function play() {
-  StartController()
-}  
-
-// play()
+const { startController } = require('./controllers/startController');
 
 class App{
   play() {
-    StartController()
+    startController()
   }  
 }
+
+const app = new App();
+app.play();
+
+
 module.exports = App;

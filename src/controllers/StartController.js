@@ -1,11 +1,11 @@
-const { startView } = require('../views/startView');
-const { mkOpponentNum } = require('../models/mkOpponentNum');
-const { playerInput } = require('../views/playerInputOutput');
+const { printGameStart, readPlayerNum } = require('../view/view');
+const Model = require('../Model/Model');
+const MainController = require('./MainController');
 
-function StartController() {
-    startView()
-    let opponentNum = mkOpponentNum();
-    playerInput(opponentNum);
+function startController() {
+  const mainController = new MainController();
+  printGameStart();
+  mainController.mainGameController();
 }
 
-exports.StartController = StartController
+exports.startController = startController

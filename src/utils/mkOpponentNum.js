@@ -1,7 +1,6 @@
 const { Random } = require('@woowacourse/mission-utils');
 
-function mkOpponentNum() {
-    let opponentNum = '';
+function mkOpponentNum(opponentNum) {
       while (opponentNum.length < 3){
         const number = Random.pickNumberInRange(1, 9);
         if (!opponentNum.includes(number))
