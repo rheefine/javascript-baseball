@@ -25,14 +25,14 @@ class MainController {
 
   ballCountController(input){
     this.#model.savePlayerNum(input);
-    if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
-      printThreeStrike();
-      this.endController();
-    } 
     if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()){
       this.ballCountOutputControll()
       this.sendPlayerNum();
     }
+    if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
+      printThreeStrike();
+      this.endController();
+    } 
   }
 
   ballCountOutputControll(){
@@ -62,11 +62,6 @@ class MainController {
       exit();
     }
   }
-
-  getModel(){
-    return this.#model
-  }
-
 }
 
 module.exports = MainController
