@@ -10,40 +10,40 @@ const {
   exit,
  } = require('../view/view');
 
-const model = new Model
 
 class MainController {
+  #model
 
   mainGameController(){
-    model.createOpponentNum();
-    this.getPlayerNum();
+    this.#model = new Model()
+    this.sendPlayerNum();
   }
 
-  getPlayerNum(){
+  sendPlayerNum(){
     readPlayerNum(this.ballCountController.bind(this));
   }
 
   ballCountController(input){
-    model.savePlayerNum(input);
-    if (model.opponentNum === model.playerNum) {
+    this.#model.savePlayerNum(input);
+    if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
       printThreeStrike();
       this.endController();
     } 
-    if (model.opponentNum !== model.playerNum && model.ball > 0 && model.strike > 0) {
-      printBallStrike(model.ball, model.strike); 
-      this.getPlayerNum(); 
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() > 0 && this.#model.getStrike() > 0) {
+      printBallStrike(this.#model.getBall(), this.#model.getStrike()); 
+      this.sendPlayerNum(); 
     }
-    if (model.pponentNum !== model.playerNum && model.ball > 0 && model.strike === 0) {
-      printBall(model.ball);
-      this.getPlayerNum();
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() > 0 && this.#model.getStrike() === 0) {
+      printBall(this.#model.getBall());
+      this.sendPlayerNum();
     }
-    if (model.opponentNum !== model.playerNum && model.ball === 0 && model.strike > 0) {
-      printStrike(model.strike);
-      this.getPlayerNum();
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() === 0 && this.#model.getStrike() > 0) {
+      printStrike(this.#model.getStrike());
+      this.sendPlayerNum();
     }
-    if (model.opponentNum !== model.layerNum && model.ball === 0 && model.strike ===0) {
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() === 0 && this.#model.getStrike() ===0) {
       printNothing();
-      this.getPlayerNum();
+      this.sendPlayerNum();
     }
     
   }
