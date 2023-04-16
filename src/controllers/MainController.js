@@ -30,12 +30,12 @@ class MainController {
       this.endController();
     } 
     if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()){
-      this.ballCountOutput()
+      this.ballCountOutputControll()
       this.sendPlayerNum();
     }
   }
 
-  ballCountOutput(){
+  ballCountOutputControll(){
     if (this.#model.getBall() > 0 && this.#model.getStrike() > 0) {
       printBallStrike(this.#model.getBall(), this.#model.getStrike()); 
     }
