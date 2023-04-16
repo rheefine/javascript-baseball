@@ -1,5 +1,4 @@
-const { printGameStart, readPlayerNum } = require('../view/view');
-const Model = require('../Model/Model');
+const { printGameStart } = require('../view/view');
 const MainController = require('./MainController');
 
 function startController() {

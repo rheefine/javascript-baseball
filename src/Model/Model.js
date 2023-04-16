@@ -3,9 +3,8 @@ const { mkOpponentNum } = require('../utils/mkOpponentNum')
 
 class Model {
   opponentNum(){
-    const emptyStr = ''
-    const opponetNum = mkOpponentNum(emptyStr)
-      return opponetNum
+    const opponentNum = mkOpponentNum()
+      return opponentNum
     }
   
   playerNum(input){
@@ -13,9 +12,9 @@ class Model {
     return playerNum
   }
 
-  ballStrike(){
-    const opponentArray = this.opponentNum.split('');
-    const playerArray = this.playerNum().split('');
+  ballStrike(playerNum, opponentNum){
+    const opponentArray = opponentNum.split('');
+    const playerArray = playerNum.split('');
     let ball = 0;
     let strike = 0;
     opponentArray.forEach((element, index) => {
