@@ -29,23 +29,25 @@ class MainController {
       printThreeStrike();
       this.endController();
     } 
-    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() > 0 && this.#model.getStrike() > 0) {
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()){
+      this.ballCountOutput()
+      this.sendPlayerNum();
+    }
+  }
+
+  ballCountOutput(){
+    if (this.#model.getBall() > 0 && this.#model.getStrike() > 0) {
       printBallStrike(this.#model.getBall(), this.#model.getStrike()); 
-      this.sendPlayerNum(); 
     }
-    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() > 0 && this.#model.getStrike() === 0) {
+    if (this.#model.getBall() > 0 && this.#model.getStrike() === 0) {
       printBall(this.#model.getBall());
-      this.sendPlayerNum();
     }
-    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() === 0 && this.#model.getStrike() > 0) {
+    if (this.#model.getBall() === 0 && this.#model.getStrike() > 0) {
       printStrike(this.#model.getStrike());
-      this.sendPlayerNum();
     }
-    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum() && this.#model.getBall() === 0 && this.#model.getStrike() ===0) {
+    if (this.#model.getBall() === 0 && this.#model.getStrike() ===0) {
       printNothing();
-      this.sendPlayerNum();
     }
-    
   }
 
   endController() {
@@ -60,6 +62,11 @@ class MainController {
       exit();
     }
   }
+
+  getModel(){
+    return this.#model
+  }
+
 }
 
 module.exports = MainController
