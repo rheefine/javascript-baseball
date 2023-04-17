@@ -1,8 +1,9 @@
-const { startController } = require('./controllers/startController');
+const Controller = require('./Controller/Controller');
 
 class App{
   play() {
-    startController()
+    const controller = new Controller();
+    controller.mainGameController();
   }  
 }
 

@@ -2,6 +2,7 @@ const Model = require('../Model/Model');
 const { 
   readPlayerNum,
   readRestartEnd,
+  printGameStart,
   printBallStrike,
   printBall,
   printStrike,
@@ -11,8 +12,13 @@ const {
  } = require('../view/view');
 
 
-class MainController {
+class Controller {
+
   #model
+
+  constructor(){
+    printGameStart();
+  }
 
   mainGameController(){
     this.#model = new Model()
@@ -26,7 +32,7 @@ class MainController {
   ballCountController(input){
     this.#model.savePlayerNum(input);
     if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()){
-      this.ballCountOutputControll()
+      this.ballCountOutputController()
       this.sendPlayerNum();
     }
     if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
@@ -36,20 +42,22 @@ class MainController {
   }
 
   ballCountOutputControll(){
-    if (this.#model.getBall() > 0 && this.#model.getStrike() > 0) {
-      printBallStrike(this.#model.getBall(), this.#model.getStrike()); 
+    const ballCount = this.#model.getBall();
+    const strikeCount = this.#model.getStrike();
+    
+    if (ballCount > 0 && strikeCount > 0) {
+      printBallStrike(ballCount, strikeCount); 
     }
-    if (this.#model.getBall() > 0 && this.#model.getStrike() === 0) {
-      printBall(this.#model.getBall());
+    if (ballCount > 0 && strikeCount === 0) {
+      printBall(ballCount);
     }
-    if (this.#model.getBall() === 0 && this.#model.getStrike() > 0) {
-      printStrike(this.#model.getStrike());
+    if (ballCount === 0 && strikeCount > 0) {
+      printStrike(strikeCount);
     }
-    if (this.#model.getBall() === 0 && this.#model.getStrike() ===0) {
+    if (ballCount === 0 && strikeCount ===0) {
       printNothing();
     }
   }
-
   endController() {
     readRestartEnd(this.gameEnd.bind(this));
   }
@@ -64,4 +72,4 @@ class MainController {
   }
 }
 
-module.exports = MainController
+module.exports = Controller
