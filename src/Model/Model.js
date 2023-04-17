@@ -1,27 +1,28 @@
-const { compareNum } = require('../utils/capareNum');
-const { mkOpponentNum } = require('../utils/mkOpponentNum')
-
+const { compareNum } = require('../utils/compareNum');
+const { mkOpponentNum } = require('../utils/mkOpponentNum');
 
 class Model {
+  #opponentNum;
 
-  #opponentNum 
-  #playerNum
-  #ball
-  #strike
+  #playerNum;
 
-  constructor(){
+  #ball;
+
+  #strike;
+
+  constructor() {
     this.#opponentNum = mkOpponentNum();
     this.#playerNum = '';
     this.#ball = 0;
     this.#strike = 0;
   }
 
-  savePlayerNum(input){
+  savePlayerNum(input) {
     this.#playerNum = input;
-    this.ballStrike()
+    this.ballStrike();
   }
 
-  ballStrike(){
+  ballStrike() {
     const opponentArray = this.#opponentNum.split('');
     const playerArray = this.#playerNum.split('');
     const ballStrike = compareNum(opponentArray, playerArray);
@@ -29,22 +30,21 @@ class Model {
     this.#strike = ballStrike.strike;
   }
 
-  getOpponentNum(){
-    return this.#opponentNum
+  getOpponentNum() {
+    return this.#opponentNum;
   }
 
-  getPlayerNum(){
-    return this.#playerNum
+  getPlayerNum() {
+    return this.#playerNum;
   }
 
-  getBall(){
-    return this.#ball
+  getBall() {
+    return this.#ball;
   }
 
-  getStrike(){
-    return this.#strike
+  getStrike() {
+    return this.#strike;
   }
-
 }
 
-module.exports = Model
+module.exports = Model;

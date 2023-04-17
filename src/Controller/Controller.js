@@ -1,5 +1,5 @@
 const Model = require('../Model/Model');
-const { 
+const {
   readPlayerNum,
   readRestartEnd,
   printGameStart,
@@ -9,44 +9,42 @@ const {
   printNothing,
   printThreeStrike,
   exit,
- } = require('../view/view');
-
+} = require('../view/view');
 
 class Controller {
+  #model;
 
-  #model
-
-  constructor(){
+  constructor() {
     printGameStart();
   }
 
-  mainGameController(){
-    this.#model = new Model()
+  mainGameController() {
+    this.#model = new Model();
     this.sendPlayerNum();
   }
 
-  sendPlayerNum(){
+  sendPlayerNum() {
     readPlayerNum(this.ballCountController.bind(this));
   }
 
-  ballCountController(input){
+  ballCountController(input) {
     this.#model.savePlayerNum(input);
-    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()){
-      this.ballCountOutputController()
+    if (this.#model.getOpponentNum() !== this.#model.getPlayerNum()) {
+      this.ballCountOutputController();
       this.sendPlayerNum();
     }
     if (this.#model.getOpponentNum() === this.#model.getPlayerNum()) {
       printThreeStrike();
       this.endController();
-    } 
+    }
   }
 
-  ballCountOutputControll(){
+  ballCountOutputControll() {
     const ballCount = this.#model.getBall();
     const strikeCount = this.#model.getStrike();
-    
+
     if (ballCount > 0 && strikeCount > 0) {
-      printBallStrike(ballCount, strikeCount); 
+      printBallStrike(ballCount, strikeCount);
     }
     if (ballCount > 0 && strikeCount === 0) {
       printBall(ballCount);
@@ -54,22 +52,23 @@ class Controller {
     if (ballCount === 0 && strikeCount > 0) {
       printStrike(strikeCount);
     }
-    if (ballCount === 0 && strikeCount ===0) {
+    if (ballCount === 0 && strikeCount === 0) {
       printNothing();
     }
   }
+
   endController() {
     readRestartEnd(this.gameEnd.bind(this));
   }
 
-  gameEnd(input){
-    if (input==='1'){
+  gameEnd(input) {
+    if (input === '1') {
       this.mainGameController();
     }
-    if (input==='2'){
+    if (input === '2') {
       exit();
     }
   }
 }
 
-module.exports = Controller
+module.exports = Controller;
