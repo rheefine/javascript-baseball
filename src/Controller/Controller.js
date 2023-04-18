@@ -39,7 +39,7 @@ class Controller {
     }
   }
 
-  ballCountOutputControll() {
+  ballCountOutputController() {
     const ballCount = this.#model.getBall();
     const strikeCount = this.#model.getStrike();
 

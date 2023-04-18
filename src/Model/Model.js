@@ -25,9 +25,9 @@ class Model {
   ballStrike() {
     const opponentArray = this.#opponentNum.split('');
     const playerArray = this.#playerNum.split('');
-    const ballStrike = compareNum(opponentArray, playerArray);
-    this.#ball = ballStrike.ball;
-    this.#strike = ballStrike.strike;
+    const strikeBall = compareNum(opponentArray, playerArray);
+    this.#ball = strikeBall.ball;
+    this.#strike = strikeBall.strike;
   }
 
   getOpponentNum() {
