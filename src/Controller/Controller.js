@@ -24,7 +24,10 @@ class Controller {
   }
 
   sendPlayerNum() {
-    readPlayerNum(this.ballCountController.bind(this));
+    readPlayerNum(
+      this.sendPlayerNum.bind(this),
+      this.ballCountController.bind(this),
+    );
   }
 
   ballCountController(input) {
@@ -58,7 +61,7 @@ class Controller {
   }
 
   endController() {
-    readRestartEnd(this.gameEnd.bind(this));
+    readRestartEnd(this.endController.bind(this), this.gameEnd.bind(this));
   }
 
   gameEnd(input) {

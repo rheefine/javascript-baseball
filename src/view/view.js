@@ -1,8 +1,15 @@
 const { Console } = require('@woowacourse/mission-utils');
+const {
+  checkCorrectMainNumber,
+  checkCorrectMainNumbersize,
+  checkCorrectMainNumberRange,
+  checkDuplicationMainNumber,
+  checkOneOrTwo,
+} = require('../validation/validation');
 
 const MESSAGE = Object.freeze({
-  gameStart: '숫자 야구 게임을 시작합니다.',
-  numInput: '숫자를 입력해주세요.',
+  game_start: '숫자 야구 게임을 시작합니다.',
+  num_input: '숫자를 입력해주세요.',
   ball: '볼',
   strike: '스트라이크',
   nothing: '낫싱',
@@ -11,20 +18,37 @@ const MESSAGE = Object.freeze({
 });
 
 const view = {
-  readPlayerNum(callback) {
-    Console.readLine(MESSAGE.numInput, (input) => {
-      callback(input);
+  readPlayerNum(comeback, callback) {
+    Console.readLine(MESSAGE.num_input, (input) => {
+      try {
+        view.mainNumberValidation(input.split('').map(Number));
+        callback(input);
+      } catch (e) {
+        view.errorHandler(e, comeback);
+      }
     });
   },
 
-  readRestartEnd(callback) {
+  mainNumberValidation(input) {
+    checkCorrectMainNumber(input);
+    checkCorrectMainNumbersize(input);
+    checkCorrectMainNumberRange(input);
+    checkDuplicationMainNumber(input);
+  },
+
+  readRestartEnd(comeback, callback) {
     Console.readLine(MESSAGE.restart, (input) => {
-      callback(input);
+      try {
+        checkOneOrTwo(input);
+        callback(input);
+      } catch (e) {
+        view.errorHandler(e, comeback);
+      }
     });
   },
 
   printGameStart() {
-    Console.print(`${MESSAGE.gameStart}`);
+    Console.print(`${MESSAGE.game_start}`);
   },
 
   printBallStrike(ball, strike) {
@@ -46,6 +70,11 @@ const view = {
   printThreeStrike() {
     Console.print(`3${MESSAGE.strike}`);
     Console.print(MESSAGE.gameEnd);
+  },
+
+  errorHandler(error, callback) {
+    Console.print(error.message);
+    callback();
   },
 
   exit() {
