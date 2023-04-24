@@ -4,7 +4,6 @@ function compareNum(opponentArray, playerArray) {
   opponentArray.forEach((element, index) => {
     if (playerArray.includes(element) && playerArray.indexOf(element) === index)
       strike += 1;
-
     if (playerArray.includes(element) && playerArray.indexOf(element) !== index)
       ball += 1;
   });

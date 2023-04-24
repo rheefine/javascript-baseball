@@ -20,12 +20,16 @@ const MESSAGE = Object.freeze({
 const view = {
   readPlayerNum(comeback, callback) {
     Console.readLine(MESSAGE.num_input, (input) => {
+      view.mainNumberValidation(input.split('').map(Number));
+      callback(input);
+      /*
       try {
         view.mainNumberValidation(input.split('').map(Number));
         callback(input);
       } catch (e) {
         view.errorHandler(e, comeback);
       }
+      */
     });
   },
 
